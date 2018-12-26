@@ -7,7 +7,7 @@ const NoteSummary = ({note}) => {
       <div className="card-content grey-text text-darken-3">
         <span className="card-title">{note.title}</span>
         <p>Posted by {note.authorFirstName} {note.authorLastName}</p>
-        <p className="grey-text">{moment(note.createdAt.toDate()).format("Do MMM YYYY")}</p>
+        <p className="grey-text">{moment(note.createdAt.toDate()).calendar()}</p>
       </div>
     </div>
   );

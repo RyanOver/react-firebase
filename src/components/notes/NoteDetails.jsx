@@ -20,7 +20,7 @@ const NoteDetails = (props) => {
         </div>
         <div className="card-action grey lighten-4 grey-text">
           <div>Posted by { note.authorFirstName } { note.authorLastName }</div>
-          <div>{moment(note.createdAt.toDate()).format("Do MMM YYYY")}</div>
+          <div>{moment(note.createdAt.toDate()).calendar()}</div>
         </div>
       </div>
     </div>

@@ -7,9 +7,9 @@ export const addNote = (note)=>{
 
     firestore.collection('notes').add({
       ...note,
-      authorFirstName: 'Drake',
-      authorLastName: 'Lloyd',
-      authorId: 12377,
+      authorFirstName: profile.firstname,
+      authorLastName: profile.lastname,
+      authorId: authorId,
       createdAt: new Date()
     }).then(()=> {
       dispatch({type: 'CREATE_NOTE', note});

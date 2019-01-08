@@ -4,9 +4,10 @@ import { firestoreConnect} from 'react-redux-firebase';
 import { compose } from 'redux'; 
 import { Redirect } from 'react-router-dom';
 import moment from 'moment';
+import { removeNote } from '../../store/action/noteAction';
 
 const NoteDetails = (props) => {
-  const { note, auth } = props;
+  const { note, auth, id, dispatch } = props;
 
     if(!auth.uid) return <Redirect to='/signin' />
 
@@ -20,16 +21,16 @@ const NoteDetails = (props) => {
         </div>
         <div className="card-action grey lighten-4 grey-text">
           <div>Posted by { note.authorFirstName } { note.authorLastName }</div>
-          <div>{moment(note.createdAt.toDate()).calendar()}</div>
+          <div>{moment(note.createdAt.toDate()).calendar()}
+          <button onClick={removeNote({id})} 
+          className="btn-flat right red-text">Remove</button></div>
         </div>
       </div>
     </div>
     )
   } else {
   return (
-    <div className="container center">
-      <p>Loading Notes...</p>
-    </div>
+    <Redirect to='/' />
   )
 }
 }
@@ -40,12 +41,19 @@ const mapStateToProps = (state, ownProps)=>{
   const note = notes ? notes[id] : null;
   return{
     note: note,
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    id: id
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    removeNote: (id) => dispatch(removeNote(id))
   }
 }
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps,mapDispatchToProps),
   firestoreConnect([
     { collection: 'notes' }
   ])

@@ -15,6 +15,12 @@ const noteReducer = (state = initState, action) => {
     case 'CREATE_NOTE_ERROR':
       console.log('error while adding', action.err);
       return state;
+    case 'REMOVE_NOTE':
+      console.log('note removed', action.note);
+      return state;
+    case 'REMOVE_NOTE_ERROR':
+      console.log('note removing error', action.err);
+      return state;
     default:
       return state;
   }
